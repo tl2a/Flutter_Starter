@@ -1,9 +1,30 @@
 import 'package:flutter/material.dart';
+import './quotes.dart';
+import './quotes_card.dart';
 
-void main() => runApp(const MaterialApp(home: MyApp()));
+void main() => runApp(const MaterialApp(
+      home: MyApp(),
+    ));
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Quote> quotes = [
+    Quote(
+        author: 'Oscar Wilde',
+        text: 'Be yourself, everyone else is already taken'),
+    Quote(
+        author: 'Oscar Wilde',
+        text: 'I have nothing to declare except my genius'),
+    Quote(
+        author: 'Oscar Wilde',
+        text: 'The truth is rarely pure and never simple')
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -13,193 +34,13 @@ class MyApp extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.red[600],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 30),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(150),
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 6.0,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 0,
-                        blurRadius: 15,
-                        offset:
-                            const Offset(0, 0), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: const CircleAvatar(
-                      radius: 100,
-                      backgroundImage: AssetImage('assets/avatar.jpg')),
-                ),
-                Positioned(
-                    bottom: 30,
-                    right: 10,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      padding: const EdgeInsets.all(0),
-                      child: const Icon(
-                        Icons.check_circle,
-                        color: Colors.greenAccent,
-                        size: 50,
-                      ),
-                    ))
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 30),
-              child: const Text(
-                'Highlight',
-                style: TextStyle(fontFamily: 'Museosans Rounded', fontSize: 25),
-              ),
-            ),
-            const Divider(height: 60),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.cyan,
-                    ),
-                    padding: const EdgeInsets.all(15),
-                    margin: const EdgeInsets.all(4),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '1',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.pinkAccent,
-                    ),
-                    padding: const EdgeInsets.all(15),
-                    margin: const EdgeInsets.all(4),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '2',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.amber,
-                    ),
-                    padding: const EdgeInsets.all(15),
-                    margin: const EdgeInsets.all(4),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '3',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.indigoAccent,
-                    ),
-                    padding: const EdgeInsets.all(15),
-                    margin: const EdgeInsets.all(4),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '1',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.purpleAccent,
-                    ),
-                    padding: const EdgeInsets.all(15),
-                    margin: const EdgeInsets.all(4),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '2',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.redAccent,
-                    ),
-                    padding: const EdgeInsets.all(15),
-                    margin: const EdgeInsets.all(4),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '3',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Colors.red[600],
-        mini: true,
-        child: const Icon(Icons.add),
+      body: Column(
+        children: quotes
+            .map((quote) => QuotesCard(
+                  quote: quote,
+                  delete: () => setState(() => quotes.remove(quote)),
+                ))
+            .toList(),
       ),
     );
   }
