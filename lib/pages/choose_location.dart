@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordpair_gen/services/world_time.dart';
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({Key? key}) : super(key: key);
@@ -8,35 +9,57 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
-  void getData() async {
-    String username = await Future.delayed(const Duration(seconds: 3), () {
-      return 'Yoshi';
+  List<WorldTime> locations = [
+    WorldTime(url: 'Asia/Kolkata', location: 'Kolkata', flag: 'india.png'),
+    WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
+    WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece.png'),
+    WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'egypt.png'),
+    WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya.png'),
+    WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
+    WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
+    WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
+    WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+  ];
+
+  void updateTime(index) async {
+    WorldTime instance = locations[index];
+    await instance.getTime();
+
+    // Navigate to home screen
+    if (!mounted) return;
+    Navigator.pop(context, {
+      'location': instance.location,
+      'flag': instance.flag,
+      'time': instance.time,
+      'isDayTime': instance.isDayTime,
     });
-
-    String bio = await Future.delayed(const Duration(seconds: 2), () {
-      return 'vegan, musician & egg collector';
-    });
-
-    print('$username - $bio');
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-    print('Hey There');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Choose a location'),
-          centerTitle: true,
-          backgroundColor: Colors.red[600],
-        ),
-        body: const SafeArea(
-          child: Text('Choose a location'),
-        ));
+      appBar: AppBar(
+        title: const Text('Choose a location'),
+        centerTitle: true,
+        backgroundColor: Colors.red[600],
+      ),
+      body: ListView.builder(
+          itemCount: locations.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 4),
+              child: Card(
+                child: ListTile(
+                  onTap: () => updateTime(index),
+                  title: Text(locations[index].location),
+                  leading: CircleAvatar(
+                    backgroundImage:
+                        AssetImage('assets/${locations[index].flag}'),
+                  ),
+                ),
+              ),
+            );
+          }),
+    );
   }
 }
